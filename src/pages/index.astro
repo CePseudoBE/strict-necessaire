@@ -3,6 +3,7 @@ import { getImage } from "astro:assets";
 import "../styles/tokens.css";
 import ogSource from "../assets/img/og.png";
 import iconSource from "../assets/img/icone.png";
+import paperTexture from "../assets/img/texture.png";
 import Hero from "../components/Hero.astro";
 import Refus from "../components/Refus.astro";
 import Artemis from "../components/Artemis.astro";
@@ -19,6 +20,7 @@ const og = await getImage({
   height: 630,
   background: "#e3c7a8",
 });
+const texture = await getImage({ src: paperTexture, width: 600 });
 const icon = await getImage({ src: iconSource, width: 64, format: "png" });
 const touchIcon = await getImage({
   src: iconSource,
@@ -49,7 +51,7 @@ const touchIcon = await getImage({
       href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap"
     />
   </head>
-  <body>
+  <body style={`--texture: url(${texture.src})`}>
     <Hero />
     <div class="wrap">
       <Refus />

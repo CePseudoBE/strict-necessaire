@@ -1,5 +1,5 @@
 <section id="nous">
-  <div class="intro">
+  <div class="intro" data-reveal>
     <p class="label">Nous deux</p>
     <h2>Deux personnes, et vous parlez à celles qui codent.</h2>
     <p>
@@ -9,7 +9,7 @@
     </p>
   </div>
   <div class="duo">
-    <article>
+    <article data-reveal>
       <p class="label">Backend et infrastructure</p>
       <h3>Axel Hoffmann</h3>
       <p>
@@ -18,12 +18,13 @@
         et garde vos documents chez vous.
       </p>
     </article>
-    <article>
-      <p class="label">À compléter</p>
-      <h3>[Prénom Nom]</h3>
+    <article data-reveal>
+      <p class="label">Intelligence artificielle</p>
+      <h3>Ilias Ibishev</h3>
       <p>
-        [Deux phrases sur ton associé : son métier, ce qu'il apporte, pourquoi
-        un client lui fait confiance.]
+        Ingénieur informatique, spécialisé en intelligence artificielle. Il
+        conçoit la partie IA de nos outils et la garde là où elle est vraiment
+        utile.
       </p>
     </article>
   </div>
@@ -33,24 +34,52 @@
   .duo {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 28px;
+    gap: clamp(28px, 4vw, 56px);
   }
   .duo article {
-    background: var(--paper);
-    border: 1px solid var(--line);
-    padding: 24px;
+    position: relative;
+    isolation: isolate;
     display: flex;
     flex-direction: column;
     gap: 10px;
     min-width: 0;
+    padding: clamp(24px, 3vw, 36px);
+    background: var(--paper);
+    box-shadow:
+      0 1px 2px rgb(20 30 25 / 0.12),
+      0 14px 30px -18px rgb(20 30 25 / 0.45);
+    rotate: -0.6deg;
   }
-  .duo p {
+  .duo article:nth-child(2) {
+    rotate: 0.5deg;
+    translate: 0 18px;
+  }
+  .duo article::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--texture) center / 600px;
+    opacity: 0.45;
+    mix-blend-mode: soft-light;
+  }
+  .duo h3 {
+    font-size: clamp(1.5rem, 2.6vw, 2rem);
+    font-weight: 800;
+  }
+  .duo .label {
+    color: var(--stamp);
+  }
+  .duo p:not(.label) {
     color: var(--muted);
   }
 
   @media (max-width: 860px) {
     .duo {
       grid-template-columns: minmax(0, 1fr);
+    }
+    .duo article:nth-child(2) {
+      translate: none;
     }
   }
 </style>

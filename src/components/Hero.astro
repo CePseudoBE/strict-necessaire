@@ -1,15 +1,13 @@
 ---
 import type { ImageMetadata } from "astro";
-import { getImage, Image } from "astro:assets";
+import { Image } from "astro:assets";
 import desk from "../assets/img/hero.png";
-import paperTexture from "../assets/img/texture.png";
 
 const frames = import.meta.glob<{ default: ImageMetadata }>(
   "../assets/img/tampon/*.png",
   { eager: true },
 );
 const directions = ["nw", "n", "ne", "w", "c", "e", "sw", "s", "se"];
-const texture = await getImage({ src: paperTexture, width: 600 });
 ---
 
 <header class="hero-band" data-theme="light">
@@ -63,7 +61,6 @@ const texture = await getImage({ src: paperTexture, width: 600 });
         <div
           class="sheet"
           aria-label="Démonstration : une demande client analysée contre des PV"
-          style={`--texture: url(${texture.src})`}
         >
           <div class="sheet-head">
             <span>De : bureau d'études</span>
