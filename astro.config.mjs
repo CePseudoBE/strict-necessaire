@@ -2,8 +2,9 @@
 import { defineConfig, fontProviders } from "astro/config";
 
 export default defineConfig({
-  // Domaine provisoire : à remplacer par le domaine définitif avant la mise en ligne (canonical, hreflang, sitemap, og:url).
-  site: "https://strict-necessaire.example",
+  // Adresse GitHub Pages. Avec un domaine personnalisé : le mettre dans site et supprimer base.
+  site: "https://cepseudobe.github.io",
+  base: "/strict-necessaire",
   build: {
     inlineStylesheets: "always",
   },

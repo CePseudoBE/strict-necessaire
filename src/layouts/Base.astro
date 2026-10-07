@@ -124,7 +124,7 @@ const structuredData = {
     />
     <link rel="icon" type="image/png" href={icon.src} />
     <link rel="apple-touch-icon" href={touchIcon.src} />
-    <link rel="sitemap" href="/sitemap.xml" />
+    <link rel="sitemap" href={new URL("sitemap.xml", home).href} />
     <Font cssVariable="--font-display" preload />
     <Font cssVariable="--font-body" />
     <Font cssVariable="--font-mono" />
