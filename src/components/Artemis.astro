@@ -1,5 +1,47 @@
+---
+import { Image } from "astro:assets";
+import etape1 from "../assets/img/etape-1.png";
+import etape2 from "../assets/img/etape-2.png";
+import etape3 from "../assets/img/etape-3.png";
+import etape4 from "../assets/img/etape-4.png";
+import etape5 from "../assets/img/etape-5.png";
+
+const steps = [
+  {
+    image: etape1,
+    alt: "Enveloppe ouverte posée sur un bureau, une lettre dépasse.",
+    title: "Le mail arrive",
+    text: "On part du message du client, tel qu'il est.",
+  },
+  {
+    image: etape2,
+    alt: "Plans de bâtiment réunis par un trombone.",
+    title: "On joint les pièces",
+    text: "Plans, métrés, cahier des charges : tout ce qui accompagne la demande.",
+  },
+  {
+    image: etape3,
+    alt: "Cinq classeurs verts alignés, l'un d'eux tiré vers le bas.",
+    title: "On choisit les PV",
+    text: "Vous sélectionnez les procès-verbaux à comparer.",
+  },
+  {
+    image: etape4,
+    alt: "Trois notes adhésives jaunes et un stylo.",
+    title: "Quelques questions",
+    text: "L'IA analyse, puis demande au spécialiste ce qu'elle ne peut pas trancher.",
+  },
+  {
+    image: etape5,
+    alt: "Dossier vert marqué d'un tampon violet.",
+    title: "Le PDF technique",
+    text: "Un document prêt à relire et à envoyer.",
+  },
+];
+---
+
 <section id="artemis">
-  <div class="intro">
+  <div class="intro" data-reveal>
     <p class="label">Ce qu'on a construit</p>
     <h2>Artemis vérifie une demande client contre vos PV.</h2>
     <p>
@@ -9,34 +51,26 @@
     </p>
   </div>
   <ol class="steps">
-    <li>
-      <h3>Le mail arrive</h3>
-      <p>On part du message du client, tel qu'il est.</p>
-    </li>
-    <li>
-      <h3>On joint les pièces</h3>
-      <p>
-        Plans, métrés, cahier des charges : tout ce qui accompagne la demande.
-      </p>
-    </li>
-    <li>
-      <h3>On choisit les PV</h3>
-      <p>Vous sélectionnez les procès-verbaux à comparer.</p>
-    </li>
-    <li>
-      <h3>Quelques questions</h3>
-      <p>
-        L'IA analyse, puis demande au spécialiste ce qu'elle ne peut pas
-        trancher.
-      </p>
-    </li>
-    <li>
-      <h3>Le PDF technique</h3>
-      <p>Un document prêt à relire et à envoyer.</p>
-    </li>
+    {steps.map((step) => (
+      <li data-reveal>
+        <Image
+          src={step.image}
+          alt={step.alt}
+          widths={[200, 320, 480]}
+          sizes="(max-width: 480px) 88px, (max-width: 860px) 45vw, 210px"
+        />
+        <h3>{step.title}</h3>
+        <p>{step.text}</p>
+      </li>
+    ))}
   </ol>
 
-  <div class="seg" role="group" aria-label="Choisir votre point de vue">
+  <div
+    class="seg"
+    data-reveal
+    role="group"
+    aria-label="Choisir votre point de vue"
+  >
     <button
       type="button"
       id="seg-dir"
@@ -54,7 +88,7 @@
       Vous traitez les demandes
     </button>
   </div>
-  <div class="panels">
+  <div class="panels" data-reveal>
     <div class="args" id="args-dir">
       <div>
         <h3>Vous répondez à plus d'offres</h3>
@@ -121,15 +155,22 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-    border-top: 2px solid var(--ink);
-    padding-top: 12px;
     min-width: 0;
   }
   .steps li::before {
-    content: counter(s);
+    content: counter(s, decimal-leading-zero);
+    margin-top: 6px;
+    padding-top: 10px;
+    border-top: 2px solid var(--ink);
     font-family: var(--mono);
     font-size: 0.8rem;
     color: var(--stamp);
+  }
+  .steps img {
+    order: -1;
+    width: 100%;
+    height: auto;
+    border-radius: 2px;
   }
   .steps p {
     font-size: 0.95rem;
@@ -193,6 +234,27 @@
   @media (max-width: 480px) {
     .steps {
       grid-template-columns: minmax(0, 1fr);
+    }
+    .steps li {
+      display: grid;
+      grid-template-columns: 88px minmax(0, 1fr);
+      gap: 4px 16px;
+      align-content: start;
+    }
+    .steps li > * {
+      grid-column: 2;
+    }
+    .steps li > img {
+      grid-column: 1;
+      grid-row: 1 / span 3;
+    }
+    .seg button {
+      padding: 10px 12px;
+      font-size: 0.92rem;
+    }
+    .steps li::before {
+      grid-column: 2;
+      margin-top: 0;
     }
   }
 </style>
