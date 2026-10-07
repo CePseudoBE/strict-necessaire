@@ -1,10 +1,30 @@
 ---
+import { getImage } from "astro:assets";
 import "../styles/tokens.css";
+import ogSource from "../assets/img/og.png";
+import iconSource from "../assets/img/icone.png";
 import Hero from "../components/Hero.astro";
 import Refus from "../components/Refus.astro";
 import Artemis from "../components/Artemis.astro";
 import Duo from "../components/Duo.astro";
 import Contact from "../components/Contact.astro";
+
+const description =
+  "Studio IA à deux, à Bruxelles. On construit des outils qui font à votre place le travail long, répétitif et vérifiable.";
+const og = await getImage({
+  src: ogSource,
+  format: "jpg",
+  width: 1200,
+  height: 630,
+  background: "#e3c7a8",
+});
+const icon = await getImage({ src: iconSource, width: 64, format: "png" });
+const touchIcon = await getImage({
+  src: iconSource,
+  width: 180,
+  format: "png",
+  background: "#e6ede7",
+});
 ---
 
 <!doctype html>
@@ -13,14 +33,24 @@ import Contact from "../components/Contact.astro";
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Le Strict Nécessaire</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content="Le Strict Nécessaire" />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(og.src, Astro.url)} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/png" href={icon.src} />
+    <link rel="apple-touch-icon" href={touchIcon.src} />
+    <script is:inline>
+      document.documentElement.classList.add("js");
+    </script>
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap"
     />
   </head>
   <body>
+    <Hero />
     <div class="wrap">
-      <Hero />
       <Refus />
       <Artemis />
       <Duo />
@@ -42,12 +72,12 @@ import Contact from "../components/Contact.astro";
     font-family: var(--body);
     font-size: 17px;
     line-height: 1.55;
-    padding-inline: clamp(16px, 5vw, 56px);
-    padding-block: 0 64px;
+    margin: 0;
+    padding-bottom: 64px;
   }
   .wrap {
-    max-width: 1120px;
-    margin-inline: auto;
+    width: min(1120px, 100% - 2 * clamp(16px, 5vw, 56px));
+    margin: clamp(64px, 10vw, 120px) auto 0;
     display: flex;
     flex-direction: column;
     gap: clamp(64px, 10vw, 120px);
