@@ -54,50 +54,52 @@
       Vous traitez les demandes
     </button>
   </div>
-  <div class="args" id="args-dir">
-    <div>
-      <h3>Vous répondez à plus d'offres</h3>
-      <p>
-        Aujourd'hui, on trie et on ne répond qu'à certaines demandes, faute de
-        temps. Avec la vérification préparée, vous pouvez toutes les traiter.
-      </p>
+  <div class="panels">
+    <div class="args" id="args-dir">
+      <div>
+        <h3>Vous répondez à plus d'offres</h3>
+        <p>
+          Aujourd'hui, on trie et on ne répond qu'à certaines demandes, faute de
+          temps. Avec la vérification préparée, vous pouvez toutes les traiter.
+        </p>
+      </div>
+      <div>
+        <h3>Des heures d'expert rendues</h3>
+        <p>
+          Le temps de vos profils les plus chers passe de la lecture de PV à la
+          décision et à la relation client.
+        </p>
+      </div>
+      <div>
+        <h3>Une réponse défendable</h3>
+        <p>
+          Chaque conclusion renvoie au PV qui la justifie. On sait pourquoi on a
+          dit oui ou non.
+        </p>
+      </div>
     </div>
-    <div>
-      <h3>Des heures d'expert rendues</h3>
-      <p>
-        Le temps de vos profils les plus chers passe de la lecture de PV à la
-        décision et à la relation client.
-      </p>
-    </div>
-    <div>
-      <h3>Une réponse défendable</h3>
-      <p>
-        Chaque conclusion renvoie au PV qui la justifie. On sait pourquoi on a
-        dit oui ou non.
-      </p>
-    </div>
-  </div>
-  <div class="args" id="args-met" hidden>
-    <div>
-      <h3>Fini la relecture ligne par ligne</h3>
-      <p>
-        L'outil repère les exigences dans le mail et les pièces, et les
-        confronte aux PV choisis.
-      </p>
-    </div>
-    <div>
-      <h3>On vous demande l'essentiel</h3>
-      <p>
-        Quelques questions courtes, sur les points où votre jugement compte
-        vraiment.
-      </p>
-    </div>
-    <div>
-      <h3>Le document est déjà rédigé</h3>
-      <p>
-        Vous relisez et corrigez un PDF technique au lieu de partir d'une page
-        blanche.
-      </p>
+    <div class="args" id="args-met">
+      <div>
+        <h3>Fini la relecture ligne par ligne</h3>
+        <p>
+          L'outil repère les exigences dans le mail et les pièces, et les
+          confronte aux PV choisis.
+        </p>
+      </div>
+      <div>
+        <h3>On vous demande l'essentiel</h3>
+        <p>
+          Quelques questions courtes, sur les points où votre jugement compte
+          vraiment.
+        </p>
+      </div>
+      <div>
+        <h3>Le document est déjà rédigé</h3>
+        <p>
+          Vous relisez et corrigez un PDF technique au lieu de partir d'une page
+          blanche.
+        </p>
+      </div>
     </div>
   </div>
 </section>
@@ -156,7 +158,18 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 28px;
   }
+  .panels {
+    display: grid;
+    gap: 28px;
+  }
+  :global(.js) .panels > .args {
+    grid-area: 1 / 1;
+  }
   .args[hidden] {
+    display: grid;
+    visibility: hidden;
+  }
+  :global(html:not(.js)) .seg {
     display: none;
   }
   .args div {
