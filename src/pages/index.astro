@@ -1,0 +1,49 @@
+---
+import "../styles/tokens.css";
+import Hero from "../components/Hero.astro";
+import Refus from "../components/Refus.astro";
+import Artemis from "../components/Artemis.astro";
+import Duo from "../components/Duo.astro";
+import Contact from "../components/Contact.astro";
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Le Strict Nécessaire</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" />
+  </head>
+  <body>
+    <div class="wrap">
+      <Hero />
+      <Refus />
+      <Artemis />
+      <Duo />
+      <Contact />
+      <footer>Le Strict Nécessaire · Bruxelles · première version du site</footer>
+    </div>
+  </body>
+</html>
+
+<style is:global>
+  *{box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;padding-inline:clamp(16px,5vw,56px);padding-block:0 64px}
+  .wrap{max-width:1120px;margin-inline:auto;display:flex;flex-direction:column;gap:clamp(64px,10vw,120px)}
+  a{color:inherit}
+  :focus-visible{outline:3px solid var(--stamp);outline-offset:3px}
+  h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.02;letter-spacing:-.02em}
+  h1{font-size:clamp(2.7rem,8.5vw,6.2rem);font-weight:800}
+  h2{font-size:clamp(1.9rem,4.6vw,3.2rem);font-weight:800}
+  h3{font-size:1.25rem;font-weight:600;letter-spacing:-.01em;line-height:1.2}
+  p{margin:0;max-width:62ch}
+  .label{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}
+  mark{background:var(--hl);color:var(--on-hl);padding:.05em .2em;border-radius:2px}
+  button{font:inherit;color:inherit;cursor:pointer}
+  .ghost{background:none;border:1px solid var(--line);padding:6px 12px;border-radius:2px;font-family:var(--mono);font-size:.78rem}
+  .ghost:hover{border-color:var(--ink)}
+  section{display:flex;flex-direction:column;gap:28px}
+  .intro{display:flex;flex-direction:column;gap:14px}
+  footer{font-family:var(--mono);font-size:.78rem;color:var(--muted)}
+</style>
