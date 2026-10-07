@@ -1,168 +1,22 @@
 ---
-import { getImage } from "astro:assets";
-import "../styles/tokens.css";
-import ogSource from "../assets/img/og.png";
-import iconSource from "../assets/img/icone.png";
-import paperTexture from "../assets/img/texture.png";
+import Base from "../layouts/Base.astro";
 import Hero from "../components/Hero.astro";
 import Refus from "../components/Refus.astro";
 import Artemis from "../components/Artemis.astro";
 import Duo from "../components/Duo.astro";
 import Contact from "../components/Contact.astro";
-import Cursor from "../components/Cursor.astro";
+import { translations } from "../i18n/ui";
 
-const description =
-  "Studio IA à deux, à Bruxelles. On construit des outils qui font à votre place le travail long, répétitif et vérifiable.";
-const og = await getImage({
-  src: ogSource,
-  format: "jpg",
-  width: 1200,
-  height: 630,
-  background: "#e3c7a8",
-});
-const texture = await getImage({ src: paperTexture, width: 600 });
-const icon = await getImage({ src: iconSource, width: 64, format: "png" });
-const touchIcon = await getImage({
-  src: iconSource,
-  width: 180,
-  format: "png",
-  background: "#e6ede7",
-});
+const t = translations(Astro.currentLocale);
 ---
 
-<!doctype html>
-<html lang="fr">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Le Strict Nécessaire</title>
-    <meta name="description" content={description} />
-    <meta property="og:title" content="Le Strict Nécessaire" />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(og.src, Astro.url)} />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" type="image/png" href={icon.src} />
-    <link rel="apple-touch-icon" href={touchIcon.src} />
-    <script is:inline>
-      document.documentElement.classList.add("js");
-    </script>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap"
-    />
-  </head>
-  <body style={`--texture: url(${texture.src})`}>
-    <Hero />
-    <div class="wrap">
-      <Refus />
-      <Artemis />
-      <Duo />
-      <Contact />
-      <footer>
-        Le Strict Nécessaire · Bruxelles · première version du site
-      </footer>
-    </div>
-    <Cursor />
-    <script src="../scripts/reveal.ts"></script>
-  </body>
-</html>
-
-<style is:global>
-  * {
-    box-sizing: border-box;
-  }
-  body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: var(--body);
-    font-size: 17px;
-    line-height: 1.55;
-    margin: 0;
-    padding-bottom: 64px;
-  }
-  .wrap {
-    width: min(1120px, 100% - 2 * clamp(16px, 5vw, 56px));
-    margin: clamp(64px, 10vw, 120px) auto 0;
-    display: flex;
-    flex-direction: column;
-    gap: clamp(64px, 10vw, 120px);
-  }
-  a {
-    color: inherit;
-  }
-  :focus-visible {
-    outline: 3px solid var(--stamp);
-    outline-offset: 3px;
-  }
-  h1,
-  h2,
-  h3 {
-    font-family: var(--display);
-    text-wrap: balance;
-    margin: 0;
-    line-height: 1.02;
-    letter-spacing: -0.02em;
-  }
-  h1 {
-    font-size: clamp(2.7rem, 8.5vw, 6.2rem);
-    font-weight: 800;
-  }
-  h2 {
-    font-size: clamp(1.9rem, 4.6vw, 3.2rem);
-    font-weight: 800;
-  }
-  h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    line-height: 1.2;
-  }
-  p {
-    margin: 0;
-    max-width: 62ch;
-  }
-  .label {
-    font-family: var(--mono);
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.09em;
-    color: var(--muted);
-  }
-  mark {
-    background: var(--hl);
-    color: var(--on-hl);
-    padding: 0.05em 0.2em;
-    border-radius: 2px;
-  }
-  button {
-    font: inherit;
-    color: inherit;
-    cursor: pointer;
-  }
-  .ghost {
-    background: none;
-    border: 1px solid var(--line);
-    padding: 6px 12px;
-    border-radius: 2px;
-    font-family: var(--mono);
-    font-size: 0.78rem;
-  }
-  .ghost:hover {
-    border-color: var(--ink);
-  }
-  section {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-  }
-  .intro {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-  footer {
-    font-family: var(--mono);
-    font-size: 0.78rem;
-    color: var(--muted);
-  }
-</style>
+<Base>
+  <Hero />
+  <main class="wrap">
+    <Refus />
+    <Artemis />
+    <Duo />
+    <Contact />
+  </main>
+  <footer class="wrap">{t.footer}</footer>
+</Base>

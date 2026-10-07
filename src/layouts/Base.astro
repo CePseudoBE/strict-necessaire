@@ -1,0 +1,260 @@
+---
+import { Font, getImage } from "astro:assets";
+import { getAbsoluteLocaleUrl } from "astro:i18n";
+import "../styles/tokens.css";
+import iconSource from "../assets/img/icone.png";
+import ogSource from "../assets/img/og.png";
+import paperTexture from "../assets/img/texture.png";
+import Cursor from "../components/Cursor.astro";
+import { translations, ui } from "../i18n/ui";
+
+interface Props {
+  title?: string;
+  noindex?: boolean;
+}
+
+const locale = Astro.currentLocale === "en" ? "en" : "fr";
+const t = translations(locale);
+const { title = t.meta.title, noindex = false } = Astro.props;
+const locales = Object.keys(ui);
+const canonical = getAbsoluteLocaleUrl(locale);
+const home = getAbsoluteLocaleUrl("fr");
+const absolute = (path: string) => new URL(path, Astro.site).href;
+
+const og = await getImage({
+  src: ogSource,
+  format: "jpg",
+  width: 1200,
+  height: 630,
+  background: "#e3c7a8",
+});
+const texture = await getImage({ src: paperTexture, width: 600 });
+const icon = await getImage({ src: iconSource, width: 64, format: "png" });
+const touchIcon = await getImage({
+  src: iconSource,
+  width: 180,
+  format: "png",
+  background: "#e6ede7",
+});
+
+const profiles: Record<string, string[]> = {
+  "Ilias Ibishev": ["https://www.linkedin.com/in/ilias-ibishev-3b4424388/"],
+};
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${home}#organisation`,
+      name: "Le Strict Nécessaire",
+      url: home,
+      logo: absolute(touchIcon.src),
+      email: "axel.g.hoffmann@gmail.com",
+      description: t.meta.description,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: t.meta.city,
+        addressCountry: "BE",
+      },
+      founder: t.duo.people.map((person) => ({
+        "@type": "Person",
+        name: person.name,
+        jobTitle: person.role,
+        sameAs: profiles[person.name],
+      })),
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${home}#site`,
+      url: home,
+      name: "Le Strict Nécessaire",
+      inLanguage: locales,
+      publisher: { "@id": `${home}#organisation` },
+    },
+  ],
+};
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={t.meta.description} />
+    {noindex ? (
+      <meta name="robots" content="noindex" />
+    ) : (
+      <>
+        <link rel="canonical" href={canonical} />
+        {locales.map((code) => (
+          <link
+            rel="alternate"
+            hreflang={code}
+            href={getAbsoluteLocaleUrl(code)}
+          />
+        ))}
+        <link rel="alternate" hreflang="x-default" href={home} />
+      </>
+    )}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Le Strict Nécessaire" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={t.meta.description} />
+    <meta property="og:locale" content={t.meta.locale} />
+    <meta
+      property="og:locale:alternate"
+      content={translations(locale === "fr" ? "en" : "fr").meta.locale}
+    />
+    <meta property="og:image" content={absolute(og.src)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={t.meta.ogImageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="theme-color"
+      content="#e6ede7"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#0f1a16"
+      media="(prefers-color-scheme: dark)"
+    />
+    <link rel="icon" type="image/png" href={icon.src} />
+    <link rel="apple-touch-icon" href={touchIcon.src} />
+    <link rel="sitemap" href="/sitemap.xml" />
+    <Font cssVariable="--font-display" preload />
+    <Font cssVariable="--font-body" />
+    <Font cssVariable="--font-mono" />
+    <script is:inline>
+      document.documentElement.classList.add("js");
+    </script>
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(structuredData)}
+    />
+  </head>
+  <body style={`--texture: url(${texture.src})`}>
+    <a class="skip-link" href="#top">
+      {t.skipLink}
+    </a>
+    <slot />
+    <Cursor />
+    <script src="../scripts/reveal.ts"></script>
+  </body>
+</html>
+
+<style is:global>
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.55;
+    margin: 0;
+    padding-bottom: 64px;
+  }
+  .wrap {
+    width: min(1120px, 100% - 2 * clamp(16px, 5vw, 56px));
+    margin: clamp(64px, 10vw, 120px) auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(64px, 10vw, 120px);
+  }
+  a {
+    color: inherit;
+  }
+  :focus-visible {
+    outline: 3px solid var(--stamp);
+    outline-offset: 3px;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--display);
+    text-wrap: balance;
+    margin: 0;
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+  }
+  h1 {
+    font-size: clamp(2.7rem, 8.5vw, 6.2rem);
+    font-weight: 800;
+  }
+  h2 {
+    font-size: clamp(1.9rem, 4.6vw, 3.2rem);
+    font-weight: 800;
+  }
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+  p {
+    margin: 0;
+    max-width: 62ch;
+  }
+  .label {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--muted);
+  }
+  mark {
+    background: var(--hl);
+    color: var(--on-hl);
+    padding: 0.05em 0.2em;
+    border-radius: 2px;
+  }
+  button {
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+  }
+  .ghost {
+    background: none;
+    border: 1px solid var(--line);
+    padding: 6px 12px;
+    border-radius: 2px;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+  }
+  .ghost:hover {
+    border-color: var(--ink);
+  }
+  section {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .intro {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .skip-link {
+    position: absolute;
+    top: -80px;
+    left: 16px;
+    z-index: 1001;
+    padding: 10px 14px;
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .skip-link:focus {
+    top: 16px;
+  }
+  footer {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+</style>

@@ -1,37 +1,23 @@
+---
+import { translations } from "../i18n/ui";
+
+const t = translations(Astro.currentLocale).refus;
+---
+
 <section id="refus">
   <div class="intro" data-reveal>
-    <p class="label">Ce qu'on refuse de construire</p>
-    <h2>Trois projets qu'on vous déconseillera.</h2>
+    <p class="label">{t.label}</p>
+    <h2>{t.title}</h2>
   </div>
   <ul class="refus">
-    <li data-reveal>
-      <h3>
-        <s data-strike>Un chatbot sur votre page d'accueil</s>
-      </h3>
-      <p>
-        Vos clients veulent une réponse, pas une conversation. On préfère un
-        outil interne qui aide votre équipe à répondre plus vite et juste.
-      </p>
-    </li>
-    <li data-reveal>
-      <h3>
-        <s data-strike>Une IA qui décide toute seule</s>
-      </h3>
-      <p>
-        Dans un métier technique, quelqu'un signe. Nos outils préparent le
-        dossier, posent les bonnes questions à votre spécialiste, et lui
-        laissent le dernier mot.
-      </p>
-    </li>
-    <li data-reveal>
-      <h3>
-        <s data-strike>De l'IA pour dire qu'on en fait</s>
-      </h3>
-      <p>
-        Si le problème se règle avec une règle métier, un formulaire ou un
-        script, c'est ce qu'on livre. C'est moins cher et ça ne se trompe pas.
-      </p>
-    </li>
+    {t.items.map((item) => (
+      <li data-reveal>
+        <h3>
+          <s data-strike>{item.title}</s>
+        </h3>
+        <p>{item.text}</p>
+      </li>
+    ))}
   </ul>
 </section>
 

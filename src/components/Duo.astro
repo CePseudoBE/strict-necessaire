@@ -1,32 +1,23 @@
+---
+import { translations } from "../i18n/ui";
+
+const t = translations(Astro.currentLocale).duo;
+---
+
 <section id="nous">
   <div class="intro" data-reveal>
-    <p class="label">Nous deux</p>
-    <h2>Deux personnes, et vous parlez à celles qui codent.</h2>
-    <p>
-      Pas de commercial, pas de sous-traitance. On vient voir comment vous
-      travaillez, on construit un premier outil sur un vrai cas, et vous jugez
-      sur pièce.
-    </p>
+    <p class="label">{t.label}</p>
+    <h2>{t.title}</h2>
+    <p>{t.intro}</p>
   </div>
   <div class="duo">
-    <article data-reveal>
-      <p class="label">Backend et infrastructure</p>
-      <h3>Axel Hoffmann</h3>
-      <p>
-        Ingénieur backend. Rust et TypeScript en production, hébergement et
-        sécurité compris. Il fait en sorte que l'outil tourne, tienne la charge
-        et garde vos documents chez vous.
-      </p>
-    </article>
-    <article data-reveal>
-      <p class="label">Intelligence artificielle</p>
-      <h3>Ilias Ibishev</h3>
-      <p>
-        Ingénieur informatique, spécialisé en intelligence artificielle. Il
-        conçoit la partie IA de nos outils et la garde là où elle est vraiment
-        utile.
-      </p>
-    </article>
+    {t.people.map((person) => (
+      <article data-reveal>
+        <p class="label">{person.role}</p>
+        <h3>{person.name}</h3>
+        <p>{person.bio}</p>
+      </article>
+    ))}
   </div>
 </section>
 

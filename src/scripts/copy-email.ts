@@ -8,7 +8,7 @@ if (copyButton && address) {
     const selection = getSelection();
     selection?.removeAllRanges();
     selection?.addRange(range);
-    copyButton.textContent = "Adresse sélectionnée";
+    copyButton.textContent = copyButton.dataset.selected ?? "";
   };
 
   copyButton.addEventListener("click", () => {
@@ -17,7 +17,7 @@ if (copyButton && address) {
       navigator.clipboard
         .writeText(address.textContent?.trim() ?? "")
         .then(() => {
-          copyButton.textContent = "Adresse copiée";
+          copyButton.textContent = copyButton.dataset.copied ?? "";
         }, selectAddress);
     } catch {
       selectAddress();

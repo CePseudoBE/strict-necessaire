@@ -1,0 +1,29 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Base from "../layouts/Base.astro";
+import { ui } from "../i18n/ui";
+---
+
+<Base title={`${ui.fr.notFound.title} · Le Strict Nécessaire`} noindex>
+  <main class="wrap not-found" id="top">
+    <p class="label">404</p>
+    <h1>{ui.fr.notFound.title}</h1>
+    <p>
+      {ui.fr.notFound.text}
+      <a href={getRelativeLocaleUrl("fr")}>{ui.fr.notFound.back}</a>
+    </p>
+    <p lang="en">
+      {ui.en.notFound.text}
+      <a href={getRelativeLocaleUrl("en")}>{ui.en.notFound.back}</a>
+    </p>
+  </main>
+</Base>
+
+<style>
+  .not-found {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-height: 60vh;
+  }
+</style>

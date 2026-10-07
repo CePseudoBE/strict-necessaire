@@ -12,9 +12,9 @@
   --ok: #1d7a4c;
   --warn: #8f5b00;
   --no: #b3311f;
-  --display: "Bricolage Grotesque", "Arial Narrow", Arial, sans-serif;
-  --body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --mono: "DM Mono", ui-monospace, Menlo, Consolas, monospace;
+  --display: var(--font-display);
+  --body: var(--font-body);
+  --mono: var(--font-mono);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {

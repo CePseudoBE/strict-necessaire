@@ -1,16 +1,25 @@
+---
+import { translations } from "../i18n/ui";
+
+const t = translations(Astro.currentLocale).contact;
+---
+
 <section class="contact" id="contact" data-reveal>
-  <p class="label">Contact</p>
-  <h2>Envoyez-nous la tâche que personne ne veut faire.</h2>
-  <p>
-    Décrivez-la en trois lignes. On vous répond si l'IA y est nécessaire, et
-    sinon, ce qu'on ferait à la place.
-  </p>
+  <p class="label">{t.label}</p>
+  <h2>{t.title}</h2>
+  <p>{t.text}</p>
   <div class="addr">
     <a id="mail" href="mailto:axel.g.hoffmann@gmail.com">
       axel.g.hoffmann@gmail.com
     </a>
-    <button class="ghost" id="copy" type="button">
-      Copier l'adresse
+    <button
+      class="ghost"
+      id="copy"
+      type="button"
+      data-copied={t.copied}
+      data-selected={t.selected}
+    >
+      {t.copy}
     </button>
   </div>
 </section>

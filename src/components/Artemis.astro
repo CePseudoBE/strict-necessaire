@@ -5,56 +5,23 @@ import etape2 from "../assets/img/etape-2.png";
 import etape3 from "../assets/img/etape-3.png";
 import etape4 from "../assets/img/etape-4.png";
 import etape5 from "../assets/img/etape-5.png";
+import { translations } from "../i18n/ui";
 
-const steps = [
-  {
-    image: etape1,
-    alt: "Enveloppe ouverte posée sur un bureau, une lettre dépasse.",
-    title: "Le mail arrive",
-    text: "On part du message du client, tel qu'il est.",
-  },
-  {
-    image: etape2,
-    alt: "Plans de bâtiment réunis par un trombone.",
-    title: "On joint les pièces",
-    text: "Plans, métrés, cahier des charges : tout ce qui accompagne la demande.",
-  },
-  {
-    image: etape3,
-    alt: "Cinq classeurs verts alignés, l'un d'eux tiré vers le bas.",
-    title: "On choisit les PV",
-    text: "Vous sélectionnez les procès-verbaux à comparer.",
-  },
-  {
-    image: etape4,
-    alt: "Trois notes adhésives jaunes et un stylo.",
-    title: "Quelques questions",
-    text: "L'IA analyse, puis demande au spécialiste ce qu'elle ne peut pas trancher.",
-  },
-  {
-    image: etape5,
-    alt: "Dossier vert marqué d'un tampon violet.",
-    title: "Le PDF technique",
-    text: "Un document prêt à relire et à envoyer.",
-  },
-];
+const t = translations(Astro.currentLocale).artemis;
+const images = [etape1, etape2, etape3, etape4, etape5];
 ---
 
 <section id="artemis">
   <div class="intro" data-reveal>
-    <p class="label">Ce qu'on a construit</p>
-    <h2>Artemis vérifie une demande client contre vos PV.</h2>
-    <p>
-      Chaque demande doit être comparée, ligne par ligne, aux procès-verbaux qui
-      disent ce que vous avez le droit de vendre. À la main, c'est long et
-      rébarbatif. Artemis fait la lecture, votre spécialiste garde la décision.
-    </p>
+    <p class="label">{t.label}</p>
+    <h2>{t.title}</h2>
+    <p>{t.intro}</p>
   </div>
   <ol class="steps">
-    {steps.map((step) => (
+    {t.steps.map((step, index) => (
       <li data-reveal>
         <Image
-          src={step.image}
+          src={images[index]}
           alt={step.alt}
           widths={[200, 320, 480]}
           sizes="(max-width: 480px) 88px, (max-width: 860px) 45vw, 210px"
@@ -65,76 +32,29 @@ const steps = [
     ))}
   </ol>
 
-  <div
-    class="seg"
-    data-reveal
-    role="group"
-    aria-label="Choisir votre point de vue"
-  >
-    <button
-      type="button"
-      id="seg-dir"
-      aria-pressed="true"
-      data-panel="args-dir"
-    >
-      Vous dirigez
-    </button>
-    <button
-      type="button"
-      id="seg-met"
-      aria-pressed="false"
-      data-panel="args-met"
-    >
-      Vous traitez les demandes
-    </button>
+  <div class="seg" data-reveal role="group" aria-label={t.viewpointLabel}>
+    {t.viewpoints.map((viewpoint, index) => (
+      <button
+        type="button"
+        id={`seg-${viewpoint.id}`}
+        aria-pressed={index === 0 ? "true" : "false"}
+        data-panel={`args-${viewpoint.id}`}
+      >
+        {viewpoint.label}
+      </button>
+    ))}
   </div>
   <div class="panels" data-reveal>
-    <div class="args" id="args-dir">
-      <div>
-        <h3>Vous répondez à plus d'offres</h3>
-        <p>
-          Aujourd'hui, on trie et on ne répond qu'à certaines demandes, faute de
-          temps. Avec la vérification préparée, vous pouvez toutes les traiter.
-        </p>
+    {t.viewpoints.map((viewpoint) => (
+      <div class="args" id={`args-${viewpoint.id}`}>
+        {viewpoint.args.map((argument) => (
+          <div>
+            <h3>{argument.title}</h3>
+            <p>{argument.text}</p>
+          </div>
+        ))}
       </div>
-      <div>
-        <h3>Des heures d'expert rendues</h3>
-        <p>
-          Le temps de vos profils les plus chers passe de la lecture de PV à la
-          décision et à la relation client.
-        </p>
-      </div>
-      <div>
-        <h3>Une réponse défendable</h3>
-        <p>
-          Chaque conclusion renvoie au PV qui la justifie. On sait pourquoi on a
-          dit oui ou non.
-        </p>
-      </div>
-    </div>
-    <div class="args" id="args-met">
-      <div>
-        <h3>Fini la relecture ligne par ligne</h3>
-        <p>
-          L'outil repère les exigences dans le mail et les pièces, et les
-          confronte aux PV choisis.
-        </p>
-      </div>
-      <div>
-        <h3>On vous demande l'essentiel</h3>
-        <p>
-          Quelques questions courtes, sur les points où votre jugement compte
-          vraiment.
-        </p>
-      </div>
-      <div>
-        <h3>Le document est déjà rédigé</h3>
-        <p>
-          Vous relisez et corrigez un PDF technique au lieu de partir d'une page
-          blanche.
-        </p>
-      </div>
-    </div>
+    ))}
   </div>
 </section>
 
