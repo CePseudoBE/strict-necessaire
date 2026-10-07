@@ -4,19 +4,59 @@
     <h2>Trois projets qu'on vous déconseillera.</h2>
   </div>
   <ul class="refus">
-    <li><s>Un chatbot sur votre page d'accueil</s><p>Vos clients veulent une réponse, pas une conversation. On préfère un outil interne qui aide votre équipe à répondre plus vite et juste.</p></li>
-    <li><s>Une IA qui décide toute seule</s><p>Dans un métier technique, quelqu'un signe. Nos outils préparent le dossier, posent les bonnes questions à votre spécialiste, et lui laissent le dernier mot.</p></li>
-    <li><s>De l'IA pour dire qu'on en fait</s><p>Si le problème se règle avec une règle métier, un formulaire ou un script, c'est ce qu'on livre. C'est moins cher et ça ne se trompe pas.</p></li>
+    <li>
+      <s>Un chatbot sur votre page d'accueil</s>
+      <p>
+        Vos clients veulent une réponse, pas une conversation. On préfère un
+        outil interne qui aide votre équipe à répondre plus vite et juste.
+      </p>
+    </li>
+    <li>
+      <s>Une IA qui décide toute seule</s>
+      <p>
+        Dans un métier technique, quelqu'un signe. Nos outils préparent le
+        dossier, posent les bonnes questions à votre spécialiste, et lui
+        laissent le dernier mot.
+      </p>
+    </li>
+    <li>
+      <s>De l'IA pour dire qu'on en fait</s>
+      <p>
+        Si le problème se règle avec une règle métier, un formulaire ou un
+        script, c'est ce qu'on livre. C'est moins cher et ça ne se trompe pas.
+      </p>
+    </li>
   </ul>
 </section>
 
 <style>
-  .refus{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
-  .refus li{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:6px 32px;padding-block:18px;border-bottom:1px solid var(--line)}
-  .refus s{font-family:var(--display);font-weight:600;font-size:1.25rem;text-decoration-color:var(--no);text-decoration-thickness:2px}
-  .refus p{color:var(--muted)}
+  .refus {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--line);
+  }
+  .refus li {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: 6px 32px;
+    padding-block: 18px;
+    border-bottom: 1px solid var(--line);
+  }
+  .refus s {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.25rem;
+    text-decoration-color: var(--no);
+    text-decoration-thickness: 2px;
+  }
+  .refus p {
+    color: var(--muted);
+  }
 
-  @media (max-width:860px){
-    .refus li{grid-template-columns:minmax(0,1fr)}
+  @media (max-width: 860px) {
+    .refus li {
+      grid-template-columns: minmax(0, 1fr);
+    }
   }
 </style>

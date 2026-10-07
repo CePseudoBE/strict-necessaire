@@ -2,53 +2,184 @@
   <div class="intro">
     <p class="label">Ce qu'on a construit</p>
     <h2>Artemis vérifie une demande client contre vos PV.</h2>
-    <p>Chaque demande doit être comparée, ligne par ligne, aux procès-verbaux qui disent ce que vous avez le droit de vendre. À la main, c'est long et rébarbatif. Artemis fait la lecture, votre spécialiste garde la décision.</p>
+    <p>
+      Chaque demande doit être comparée, ligne par ligne, aux procès-verbaux qui
+      disent ce que vous avez le droit de vendre. À la main, c'est long et
+      rébarbatif. Artemis fait la lecture, votre spécialiste garde la décision.
+    </p>
   </div>
   <ol class="steps">
-    <li><h3>Le mail arrive</h3><p>On part du message du client, tel qu'il est.</p></li>
-    <li><h3>On joint les pièces</h3><p>Plans, métrés, cahier des charges : tout ce qui accompagne la demande.</p></li>
-    <li><h3>On choisit les PV</h3><p>Vous sélectionnez les procès-verbaux à comparer.</p></li>
-    <li><h3>Quelques questions</h3><p>L'IA analyse, puis demande au spécialiste ce qu'elle ne peut pas trancher.</p></li>
-    <li><h3>Le PDF technique</h3><p>Un document prêt à relire et à envoyer.</p></li>
+    <li>
+      <h3>Le mail arrive</h3>
+      <p>On part du message du client, tel qu'il est.</p>
+    </li>
+    <li>
+      <h3>On joint les pièces</h3>
+      <p>
+        Plans, métrés, cahier des charges : tout ce qui accompagne la demande.
+      </p>
+    </li>
+    <li>
+      <h3>On choisit les PV</h3>
+      <p>Vous sélectionnez les procès-verbaux à comparer.</p>
+    </li>
+    <li>
+      <h3>Quelques questions</h3>
+      <p>
+        L'IA analyse, puis demande au spécialiste ce qu'elle ne peut pas
+        trancher.
+      </p>
+    </li>
+    <li>
+      <h3>Le PDF technique</h3>
+      <p>Un document prêt à relire et à envoyer.</p>
+    </li>
   </ol>
 
   <div class="seg" role="group" aria-label="Choisir votre point de vue">
-    <button type="button" id="seg-dir" aria-pressed="true" data-panel="args-dir">Vous dirigez</button>
-    <button type="button" id="seg-met" aria-pressed="false" data-panel="args-met">Vous traitez les demandes</button>
+    <button
+      type="button"
+      id="seg-dir"
+      aria-pressed="true"
+      data-panel="args-dir"
+    >
+      Vous dirigez
+    </button>
+    <button
+      type="button"
+      id="seg-met"
+      aria-pressed="false"
+      data-panel="args-met"
+    >
+      Vous traitez les demandes
+    </button>
   </div>
   <div class="args" id="args-dir">
-    <div><h3>Vous répondez à plus d'offres</h3><p>Aujourd'hui, on trie et on ne répond qu'à certaines demandes, faute de temps. Avec la vérification préparée, vous pouvez toutes les traiter.</p></div>
-    <div><h3>Des heures d'expert rendues</h3><p>Le temps de vos profils les plus chers passe de la lecture de PV à la décision et à la relation client.</p></div>
-    <div><h3>Une réponse défendable</h3><p>Chaque conclusion renvoie au PV qui la justifie. On sait pourquoi on a dit oui ou non.</p></div>
+    <div>
+      <h3>Vous répondez à plus d'offres</h3>
+      <p>
+        Aujourd'hui, on trie et on ne répond qu'à certaines demandes, faute de
+        temps. Avec la vérification préparée, vous pouvez toutes les traiter.
+      </p>
+    </div>
+    <div>
+      <h3>Des heures d'expert rendues</h3>
+      <p>
+        Le temps de vos profils les plus chers passe de la lecture de PV à la
+        décision et à la relation client.
+      </p>
+    </div>
+    <div>
+      <h3>Une réponse défendable</h3>
+      <p>
+        Chaque conclusion renvoie au PV qui la justifie. On sait pourquoi on a
+        dit oui ou non.
+      </p>
+    </div>
   </div>
   <div class="args" id="args-met" hidden>
-    <div><h3>Fini la relecture ligne par ligne</h3><p>L'outil repère les exigences dans le mail et les pièces, et les confronte aux PV choisis.</p></div>
-    <div><h3>On vous demande l'essentiel</h3><p>Quelques questions courtes, sur les points où votre jugement compte vraiment.</p></div>
-    <div><h3>Le document est déjà rédigé</h3><p>Vous relisez et corrigez un PDF technique au lieu de partir d'une page blanche.</p></div>
+    <div>
+      <h3>Fini la relecture ligne par ligne</h3>
+      <p>
+        L'outil repère les exigences dans le mail et les pièces, et les
+        confronte aux PV choisis.
+      </p>
+    </div>
+    <div>
+      <h3>On vous demande l'essentiel</h3>
+      <p>
+        Quelques questions courtes, sur les points où votre jugement compte
+        vraiment.
+      </p>
+    </div>
+    <div>
+      <h3>Le document est déjà rédigé</h3>
+      <p>
+        Vous relisez et corrigez un PDF technique au lieu de partir d'une page
+        blanche.
+      </p>
+    </div>
   </div>
 </section>
 
 <script src="../scripts/viewpoint-toggle.ts"></script>
 
 <style>
-  .steps{list-style:none;counter-reset:s;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:20px}
-  .steps li{counter-increment:s;display:flex;flex-direction:column;gap:8px;border-top:2px solid var(--ink);padding-top:12px;min-width:0}
-  .steps li::before{content:counter(s);font-family:var(--mono);font-size:.8rem;color:var(--stamp)}
-  .steps p{font-size:.95rem;color:var(--muted)}
-
-  .seg{display:inline-flex;align-self:flex-start;border:1px solid var(--ink);border-radius:2px}
-  .seg button{background:none;border:0;padding:10px 16px;font-family:var(--display);font-weight:600}
-  .seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
-  .args{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
-  .args[hidden]{display:none}
-  .args div{display:flex;flex-direction:column;gap:8px;min-width:0}
-  .args p{color:var(--muted)}
-
-  @media (max-width:860px){
-    .args{grid-template-columns:minmax(0,1fr)}
-    .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .steps {
+    list-style: none;
+    counter-reset: s;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 20px;
   }
-  @media (max-width:480px){
-    .steps{grid-template-columns:minmax(0,1fr)}
+  .steps li {
+    counter-increment: s;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-top: 2px solid var(--ink);
+    padding-top: 12px;
+    min-width: 0;
+  }
+  .steps li::before {
+    content: counter(s);
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--stamp);
+  }
+  .steps p {
+    font-size: 0.95rem;
+    color: var(--muted);
+  }
+
+  .seg {
+    display: inline-flex;
+    align-self: flex-start;
+    border: 1px solid var(--ink);
+    border-radius: 2px;
+  }
+  .seg button {
+    background: none;
+    border: 0;
+    padding: 10px 16px;
+    font-family: var(--display);
+    font-weight: 600;
+  }
+  .seg button[aria-pressed="true"] {
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .args {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+  }
+  .args[hidden] {
+    display: none;
+  }
+  .args div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+  }
+  .args p {
+    color: var(--muted);
+  }
+
+  @media (max-width: 860px) {
+    .args {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .steps {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 480px) {
+    .steps {
+      grid-template-columns: minmax(0, 1fr);
+    }
   }
 </style>
