@@ -1,21 +1,28 @@
 ---
+import { Image } from "astro:assets";
 import { getRelativeLocaleUrl } from "astro:i18n";
+import tampon from "../assets/img/tampon/tampon-c.png";
 import Base from "../layouts/Base.astro";
 import { ui } from "../i18n/ui";
 ---
 
 <Base title={`${ui.fr.notFound.title} · Le Strict Nécessaire`} noindex>
   <main class="wrap not-found" id="top">
-    <p class="label">404</p>
+    <div class="marks" aria-hidden="true">
+      <Image src={tampon} alt="" widths={[200, 400]} sizes="200px" />
+      <p class="mark-404">404 · {ui.fr.notFound.title}</p>
+    </div>
     <h1>{ui.fr.notFound.title}</h1>
-    <p>
-      {ui.fr.notFound.text}
-      <a href={getRelativeLocaleUrl("fr")}>{ui.fr.notFound.back}</a>
-    </p>
-    <p lang="en">
-      {ui.en.notFound.text}
-      <a href={getRelativeLocaleUrl("en")}>{ui.en.notFound.back}</a>
-    </p>
+    <p>{ui.fr.notFound.text}</p>
+    <p lang="en">{ui.en.notFound.text}</p>
+    <div class="links">
+      <a class="back" href={getRelativeLocaleUrl("fr")}>
+        {ui.fr.notFound.back}
+      </a>
+      <a class="back" href={getRelativeLocaleUrl("en")} lang="en">
+        {ui.en.notFound.back}
+      </a>
+    </div>
   </main>
 </Base>
 
@@ -24,6 +31,58 @@ import { ui } from "../i18n/ui";
     display: flex;
     flex-direction: column;
     gap: 20px;
-    min-height: 60vh;
+    min-height: 70vh;
+  }
+  .marks {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .marks img {
+    width: 160px;
+    height: auto;
+  }
+  .mark-404 {
+    padding: 10px 18px;
+    border: 3px solid var(--stamp);
+    border-radius: 6px;
+    color: var(--stamp);
+    font-family: var(--mono);
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    rotate: -6deg;
+  }
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .back {
+    padding: 14px 22px;
+    border-radius: 2px;
+    background: var(--ink);
+    color: var(--bg);
+    font-family: var(--display);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .back:hover {
+    background: var(--hl);
+    color: var(--on-hl);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .mark-404 {
+      animation: thud 0.25s 0.4s ease-in both;
+    }
+  }
+  @keyframes thud {
+    from {
+      opacity: 0;
+      scale: 1.6;
+    }
   }
 </style>
