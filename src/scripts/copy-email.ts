@@ -14,9 +14,11 @@ if (copyButton && address) {
   copyButton.addEventListener("click", () => {
     // navigator.clipboard est absent hors contexte sécurisé (http, file://) : l'accès lève une exception
     try {
-      navigator.clipboard.writeText(address.textContent ?? "").then(() => {
-        copyButton.textContent = "Adresse copiée";
-      }, selectAddress);
+      navigator.clipboard
+        .writeText(address.textContent?.trim() ?? "")
+        .then(() => {
+          copyButton.textContent = "Adresse copiée";
+        }, selectAddress);
     } catch {
       selectAddress();
     }
