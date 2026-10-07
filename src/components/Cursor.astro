@@ -1,0 +1,43 @@
+<div class="cursor-mark" aria-hidden="true"></div>
+<svg
+  class="cursor-tip"
+  aria-hidden="true"
+  viewBox="0 0 20 20"
+  width="20"
+  height="20"
+>
+  <path
+    d="M2 2 9 3.5l7 7-5.5 5.5-7-7z"
+    fill="#f3e94b"
+    stroke="#12241d"
+    stroke-width="1.2"
+    stroke-linejoin="round"
+  ></path>
+  <path d="M2 2 9 3.5 3.5 9z" fill="#d6c91f"></path>
+</svg>
+
+<script src="../scripts/cursor.ts"></script>
+
+<style>
+  .cursor-tip,
+  .cursor-mark {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    pointer-events: none;
+    visibility: hidden;
+  }
+  .cursor-mark {
+    background: var(--hl);
+    border-radius: 3px 7px 4px 8px / 7px 3px 8px 4px;
+    rotate: -1deg;
+  }
+  .cursor-mark:not(.over-light-text) {
+    mix-blend-mode: multiply;
+  }
+  :global(html.custom-cursor:not(.native-cursor)),
+  :global(html.custom-cursor:not(.native-cursor) *) {
+    cursor: none;
+  }
+</style>
