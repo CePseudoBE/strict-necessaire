@@ -1,9 +1,9 @@
 import { gsap } from "gsap";
 
-const tip = document.querySelector<SVGSVGElement>(".cursor-tip");
+const cursor = document.querySelector<HTMLElement>(".cursor");
 const mark = document.querySelector<HTMLElement>(".cursor-mark");
 const root = document.documentElement;
-const hotspot = 2;
+const maxCaretHeight = 64;
 
 function hasOwnText(element: Element) {
   return [...element.childNodes].some(
@@ -23,9 +23,11 @@ function isLight(color: string) {
   return (0.2126 * r + 0.7152 * g + 0.0722 * b) / max > 0.5;
 }
 
-function setup(tip: SVGSVGElement, mark: HTMLElement) {
-  const moveX = gsap.quickTo(tip, "x", { duration: 0.2, ease: "power3" });
-  const moveY = gsap.quickTo(tip, "y", { duration: 0.2, ease: "power3" });
+function setup(cursor: HTMLElement, mark: HTMLElement) {
+  const tip = cursor.querySelector(".cursor-tip");
+  const caret = cursor.querySelector(".cursor-caret");
+  const moveX = gsap.quickTo(cursor, "x", { duration: 0.2, ease: "power3" });
+  const moveY = gsap.quickTo(cursor, "y", { duration: 0.2, ease: "power3" });
   let started = false;
   let hovered: Element | null = null;
 
@@ -53,40 +55,67 @@ function setup(tip: SVGSVGElement, mark: HTMLElement) {
     );
   };
 
+  const showCaret = (textElement: Element | null) => {
+    if (!textElement) {
+      gsap.to(caret, { autoAlpha: 0, duration: 0.15, overwrite: "auto" });
+      return;
+    }
+    const height = Math.min(
+      parseFloat(getComputedStyle(textElement).fontSize) * 1.15,
+      maxCaretHeight,
+    );
+    gsap.to(caret, {
+      autoAlpha: 1,
+      height,
+      y: -height / 2,
+      duration: 0.15,
+      overwrite: "auto",
+    });
+  };
+
   const onPointerMove = (event: PointerEvent) => {
-    moveX(event.clientX - hotspot);
-    moveY(event.clientY - hotspot);
+    moveX(event.clientX);
+    moveY(event.clientY);
   };
 
   const onPointerOver = (event: PointerEvent) => {
     if (!started) {
       started = true;
       root.classList.add("custom-cursor");
-      gsap.set(tip, { x: event.clientX - hotspot, y: event.clientY - hotspot });
+      gsap.set(cursor, { x: event.clientX, y: event.clientY });
     }
     const target = event.target instanceof Element ? event.target : root;
     const link = target.closest("a, button");
-    const native =
-      !link &&
-      (Boolean(target.closest("input, textarea, select, [contenteditable]")) ||
-        hasOwnText(target));
-    root.classList.toggle("native-cursor", native);
+    const editable = Boolean(
+      target.closest("input, textarea, select, [contenteditable]"),
+    );
+    const text = !link && !editable && hasOwnText(target);
+    root.classList.toggle("native-cursor", editable);
     if (link !== hovered) {
       hovered = link;
       if (link) growMark(link, event.clientX);
       else gsap.to(mark, { autoAlpha: 0, duration: 0.2, overwrite: true });
     }
-    gsap.to(tip, {
-      autoAlpha: link || native ? 0 : 1,
-      scale: link ? 0.5 : 1,
+    gsap.to(cursor, {
+      autoAlpha: editable ? 0 : 1,
       duration: 0.15,
       overwrite: "auto",
     });
+    gsap.to(tip, {
+      autoAlpha: text ? 0 : 1,
+      duration: 0.15,
+      overwrite: "auto",
+    });
+    showCaret(text ? target : null);
   };
 
   const onPointerLeave = () => {
     hovered = null;
-    gsap.to([tip, mark], { autoAlpha: 0, duration: 0.15, overwrite: "auto" });
+    gsap.to([cursor, mark], {
+      autoAlpha: 0,
+      duration: 0.15,
+      overwrite: "auto",
+    });
   };
 
   const onScroll = () => {
@@ -106,11 +135,11 @@ function setup(tip: SVGSVGElement, mark: HTMLElement) {
   };
 }
 
-if (tip && mark) {
+if (cursor && mark) {
   gsap
     .matchMedia()
     .add(
       "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
-      () => setup(tip, mark),
+      () => setup(cursor, mark),
     );
 }
