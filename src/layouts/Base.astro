@@ -138,7 +138,7 @@ const structuredData = {
     />
   </head>
   <body style={`--texture: url(${texture.src})`}>
-    <a class="skip-link" href="#top">
+    <a class="skip-link" href="#content">
       {t.skipLink}
     </a>
     <slot />
@@ -173,6 +173,10 @@ const structuredData = {
   :focus-visible {
     outline: 3px solid var(--stamp);
     outline-offset: 3px;
+  }
+  /* main only takes focus as the skip-link target, it is not a control */
+  main:focus-visible {
+    outline: none;
   }
   h1,
   h2,
