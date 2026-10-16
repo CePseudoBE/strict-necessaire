@@ -9,21 +9,27 @@ function belowFold(selector: string) {
     .filter((element) => element.getBoundingClientRect().top > innerHeight);
 }
 
+function show(targets: Element[]) {
+  gsap.to(targets, {
+    opacity: 1,
+    y: 0,
+    duration: 0.7,
+    stagger: 0.08,
+    ease: "power2.out",
+  });
+}
+
+function showFocused({ target }: FocusEvent) {
+  const reveal = target instanceof Element && target.closest("[data-reveal]");
+  if (reveal) show([reveal]);
+}
+
 gsap.matchMedia().add("(prefers-reduced-motion: no-preference)", () => {
   const reveals = belowFold("[data-reveal]");
-  gsap.set(reveals, { autoAlpha: 0, y: 24 });
-  ScrollTrigger.batch(reveals, {
-    start: "top 88%",
-    once: true,
-    onEnter: (batch) =>
-      gsap.to(batch, {
-        autoAlpha: 1,
-        y: 0,
-        duration: 0.7,
-        stagger: 0.08,
-        ease: "power2.out",
-      }),
-  });
+  // opacity, not autoAlpha: visibility:hidden would drop these from the tab order and screen readers
+  gsap.set(reveals, { opacity: 0, y: 24 });
+  ScrollTrigger.batch(reveals, { start: "top 88%", once: true, onEnter: show });
+  document.addEventListener("focusin", showFocused);
 
   belowFold("[data-strike]").forEach((strike) =>
     gsap.fromTo(
@@ -37,4 +43,6 @@ gsap.matchMedia().add("(prefers-reduced-motion: no-preference)", () => {
       },
     ),
   );
+
+  return () => document.removeEventListener("focusin", showFocused);
 });
