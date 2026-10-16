@@ -74,7 +74,7 @@ const fr = {
       },
       {
         title: "De l'IA pour dire qu'on en fait",
-        text: "Si le problème se règle avec une règle métier, un formulaire ou un script, c'est ce qu'on livre. C'est moins cher et ça ne se trompe pas.",
+        text: "Si le problème se règle avec une règle métier, un formulaire ou un script, c'est ce qu'on livre. C'est moins cher et ça ne devine pas.",
       },
     ],
   },
@@ -118,7 +118,7 @@ const fr = {
         args: [
           {
             title: "Vous répondez à plus d'offres",
-            text: "Aujourd'hui, on trie et on ne répond qu'à certaines demandes, faute de temps. Avec la vérification préparée, vous pouvez toutes les traiter.",
+            text: "Aujourd'hui, on trie et on ne répond qu'à certaines demandes, faute de temps. Avec la vérification préparée, vous pouvez en traiter beaucoup plus.",
           },
           {
             title: "Des heures d'expert rendues",
@@ -159,7 +159,7 @@ const fr = {
       {
         role: "Backend et infrastructure",
         name: "Axel Hoffmann",
-        bio: "Ingénieur backend. Rust et TypeScript en production, hébergement et sécurité compris. Il fait en sorte que l'outil tourne, tienne la charge et garde vos documents chez vous.",
+        bio: "Ingénieur backend. Rust et TypeScript en production, hébergement et sécurité compris. Il fait en sorte que l'outil tourne, tienne la charge et que vos fichiers restent stockés chez vous. Seul le contenu à analyser passe par l'API Claude d'Anthropic, qui ne s'en sert pas pour entraîner ses modèles.",
       },
       {
         role: "Intelligence artificielle",
@@ -256,7 +256,7 @@ const en: typeof fr = {
       },
       {
         title: "AI just to say you use AI",
-        text: "If a business rule, a form or a script solves the problem, that's what we deliver. It costs less and it doesn't make mistakes.",
+        text: "If a business rule, a form or a script solves the problem, that's what we deliver. It costs less and it doesn't guess.",
       },
     ],
   },
@@ -300,7 +300,7 @@ const en: typeof fr = {
         args: [
           {
             title: "You answer more requests",
-            text: "Today, you sort requests and only answer some of them, for lack of time. With the check prepared for you, you can handle them all.",
+            text: "Today, you sort requests and only answer some of them, for lack of time. With the check prepared for you, you can handle many more of them.",
           },
           {
             title: "Expert hours given back",
@@ -341,7 +341,7 @@ const en: typeof fr = {
       {
         role: "Backend and infrastructure",
         name: "Axel Hoffmann",
-        bio: "Backend engineer. Rust and TypeScript in production, hosting and security included. Makes sure the tool runs, handles the load and keeps your documents on your side.",
+        bio: "Backend engineer. Rust and TypeScript in production, hosting and security included. Makes sure the tool runs, handles the load and keeps your files stored on your side. Only the content to be analysed goes through Anthropic's Claude API, and Anthropic doesn't use it to train its models.",
       },
       {
         role: "Artificial intelligence",
